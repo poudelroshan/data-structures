@@ -1,0 +1,15 @@
+/**
+ * Implements Queue using Circular array of fixed capacity
+ * @author Roshan
+ */
+public class QueueA<E>{
+
+    private static CAPACITY; // The max cap. of the queue
+    private int f; // The front pointer for the queue
+
+    /**
+     * Constructs an empty queue
+     */
+
+
+}
