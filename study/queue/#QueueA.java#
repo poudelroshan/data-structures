@@ -1,0 +1,109 @@
+/**
+ * Implements Queue using Circular array of fixed capacity
+ * @author Roshan
+ */
+public class QueueA<E>{
+
+    private static int CAPACITY; // The max cap. of the queue
+    private int f;               // The front pointer for the queue
+    private int size;            // The current size of the queue
+    private E[] list;            // The array to store items
+
+    /**
+     * Constructs an empty queue of given capacity
+     */
+    @SuppressWarnings("unchecked")
+    public QueueA(int cap){
+	this.CAPACITY = cap;
+	this.f = 0;
+	this.size = 0;
+	this.list = (E[]) new Object[cap];
+    }
+
+    /**
+     * Constructs an empty queue of default capacity
+     * (Method/Constructor overloading)
+     */
+    public QueueA(){
+	this(20); // Default capacity is 20
+    }
+
+    
+    /** 
+     * Inserts an item to the front of the queue
+     */
+pp    public void enqueue(E data) throws Exception{
+	if (this.size == this.CAPACITY)
+	    throw new Exception("Cannot enqueue: Queue is full");
+	int i = (this.f + this.size) % this.CAPACITY;
+	this.list[i] = data;
+	this.size += 1;
+    }
+
+
+    /** 
+     * Removes item from the front of the queue and returns it
+     */
+    public E dequeue() throws Exception{
+	if (this.size == 0)
+	    throw new Exception("Cannot dequeue: Queue is empty");
+	E temp = this.list[this.f];
+	this.list[this.f] = null; // removing item from the queue
+	this.f = (this.f + 1 ) % this.CAPACITY;
+	this.size -= 1;
+	return temp;
+    }
+
+    /**
+     * Returns the item from the front of the queue without removing it
+     */
+    public E peek() throws Exception{
+	if (this.size == 0)
+	    throw new Exception("Cannot peek: Queue is Empty");
+	return this.list[this.f];
+    }
+
+    /**
+     * Returns the size of the current queue
+     */
+    public int size(){
+	return this.size;
+    }
+
+
+    /** 
+     * Returns whether the queue is empty or not
+     */
+    public boolean isEmpty(){
+	return this.size == 0;
+    }
+
+
+    /** 
+     * Returns the string representation of the queue
+     */
+    public String toString(){
+	String temp = "";
+	for (int i = 0; i < this.size; i++)
+	    temp += this.list[(this.f + i) % this.CAPACITY] + " ";
+	return temp;
+    }
+	
+
+    public static void main(String[] args) throws Exception{
+	QueueA<Integer> q = new QueueA<>(10);
+	for (int i = 0; i < 10; i++){
+	    q.enqueue(i + 20);
+	    System.out.println(q);
+	}
+	System.out.println("Is queue empty?: " + q.isEmpty());
+	System.out.println("Peek: " + q.peek());
+
+	for (int i = 0; i < 10; i++){
+	    q.dequeue();
+	    System.out.println(q);
+	}
+	System.out.println("Is queue empty?: " + q.isEmpty());	    
+    }
+
+}
